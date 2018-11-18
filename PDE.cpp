@@ -1,7 +1,11 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
+using namespace std;
 
-void solucionar(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu);
+void fijos(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu, float ta);
+void abiertos(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu, float ta);
+void periodicos(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu, float ta);
 float calccirc(float xc, float yc, float r);
 
 int main()
@@ -12,13 +16,16 @@ int main()
 	float xc = 25;
 	float yc = 25;
 	float dc = 10;	
-	float tao = 0.1;
-	float t_max = 30000;
+	float tao = 0.5;
+	float t_max = 150000;
+	float ta = 10;
 	float k = 1.62;
 	float C_p = 820;
 	float p = 2.71;
 	float nu = k/(C_p * p);
-	solucionar(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu);
+	//fijos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
+	//abiertos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
+	periodicos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
 	
 	return 0;
 }
@@ -32,7 +39,7 @@ float calccirc(int i, float xc, int j, float yc, float r)
 		return 1;
 }
 
-void solucionar(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu)
+void fijos(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu, float ta)
 {
 	float pasado[x_max][y_max];
 	float presente[x_max][y_max];
@@ -42,11 +49,9 @@ void solucionar(int x_max, int y_max, float tc, float xc, float yc, float dc, fl
 		for (int j = 0; j < y_max; j++)
 		{
 			if (calccirc(i,xc,j,yc,r) == 0)
-				pasado[i][j] = 100;
+				pasado[i][j] = tc;
 			if (calccirc(i,xc,j,yc,r) == 1)
-				pasado[i][j] = 0;
-			if ((i == 0) or (i == x_max-1) or (j == 0) or (j == y_max-1))
-				pasado[i][j] = 10;
+				pasado[i][j] = ta;
 		}
 
 	float t = tao;
@@ -56,12 +61,14 @@ void solucionar(int x_max, int y_max, float tc, float xc, float yc, float dc, fl
 			for (int j = 0; j < y_max; j++)
 			{
 				if (calccirc(i,xc,j,yc,r) == 0)
-					presente[i][j] = 100;
-				if ((i == 0) or (i == x_max-1) or (j == 0) or (j == y_max-1))
-					presente[i][j] = 10;
+					presente[i][j] = tc;
 				else
-					presente[i][j] = (nu*tao*(pasado[i+1][j] + pasado[i-1][j] + pasado[i][j+1] + pasado[i][j-1] - (4*pasado[i][j])) + pasado[i][j]);
-				
+				{
+					if ((i == 0) or (i == x_max-1) or (j == 0) or (j == y_max-1))
+						presente[i][j] = ta;
+					else
+						presente[i][j] = (nu*tao*(pasado[i+1][j] + pasado[i-1][j] + pasado[i][j+1] + pasado[i][j-1] - (4*pasado[i][j])) + pasado[i][j]);
+				}	
 			}
 
 		for (int i = 0; i < x_max; i++)
@@ -71,18 +78,139 @@ void solucionar(int x_max, int y_max, float tc, float xc, float yc, float dc, fl
 		t = t + tao;
 	}
 
+	ofstream file1;
+	file1.open("fijos.dat");
 	for (int i = 0; i < x_max; i++)
 	{
 		for (int j = 0; j < y_max; j++)
-			std::cout << presente[i][j] << " ";
-		std::cout << std::endl;
+			file1 << presente[i][j] << " ";
+		file1 << std::endl;
 	}
+	file1.close();
 }
 
 
 
 
+void abiertos(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu, float ta)
+{
+	float pasado[x_max][y_max];
+	float presente[x_max][y_max];
+	float r = dc/2;
+	
+	for (int i = 0; i < x_max; i++)
+		for (int j = 0; j < y_max; j++)
+		{
+			if (calccirc(i,xc,j,yc,r) == 0)
+				pasado[i][j] = tc;
+			if (calccirc(i,xc,j,yc,r) == 1)
+				pasado[i][j] = ta;
+		}
 
+	float t = tao;
+	while (t < t_max)
+	{
+		for (int i = 0; i < x_max; i++)
+			for (int j = 0; j < y_max; j++)
+			{
+				if (calccirc(i,xc,j,yc,r) == 0)
+					presente[i][j] = tc;
+				else
+				{
+					if ((i == 0) or (i == x_max-1) or (j == 0) or (j == y_max-1))
+					{
+						if (i == 0)
+							presente[i][j] = presente[i+1][j];
+						if (i == x_max-1)
+							presente[i][j] = presente[i-1][j];
+						if (j == 0)
+							presente[i][j] = presente[i][j+1];
+						if (j == y_max-1)
+							presente[i][j] = presente[i][j-1];
+					}
+					else
+						presente[i][j] = (nu*tao*(pasado[i+1][j] + pasado[i-1][j] + pasado[i][j+1] + pasado[i][j-1] - (4*pasado[i][j])) + pasado[i][j]);
+				}	
+			}
+
+		for (int i = 0; i < x_max; i++)
+			for (int j = 0; j < y_max; j++)
+				pasado[i][j] = presente[i][j];
+
+		t = t + tao;
+	}
+
+	ofstream file2;
+	file2.open("abiertos.dat");
+	for (int i = 0; i < x_max; i++)
+	{
+		for (int j = 0; j < y_max; j++)
+			file2 << presente[i][j] << " ";
+		file2 << std::endl;
+	}
+	file2.close();
+}
+
+
+
+void periodicos(int x_max, int y_max, float tc, float xc, float yc, float dc, float tao, float t_max, float nu, float ta)
+{
+	float pasado[x_max][y_max];
+	float presente[x_max][y_max];
+	float r = dc/2;
+	
+	for (int i = 0; i < x_max; i++)
+		for (int j = 0; j < y_max; j++)
+		{
+			if (calccirc(i,xc,j,yc,r) == 0)
+				pasado[i][j] = tc;
+			if (calccirc(i,xc,j,yc,r) == 1)
+				pasado[i][j] = ta;
+		}
+
+	float t = tao;
+	while (t < t_max)
+	{
+		for (int i = 0; i < x_max; i++)
+			for (int j = 0; j < y_max; j++)
+			{
+				if (calccirc(i,xc,j,yc,r) == 0)
+					presente[i][j] = tc;
+				else
+				{
+					if ((i == 0) or (i == x_max-1) or (j == 0) or (j == y_max-1))
+					{
+						if (i == 0)
+							presente[i][j] = presente[x_max-2][j];
+						if (i == x_max-1)
+							presente[i][j] = presente[1][j];
+						if (j == 0)
+							presente[i][j] = presente[i][y_max-2];
+						if (j == y_max-1)
+							presente[i][j] = presente[i][1];
+					}
+					else
+						presente[i][j] = (nu*tao*(pasado[i+1][j] + pasado[i-1][j] + pasado[i][j+1] + pasado[i][j-1] - (4*pasado[i][j])) + pasado[i][j]);
+				}	
+			}
+
+		for (int i = 0; i < x_max; i++)
+			for (int j = 0; j < y_max; j++)
+				pasado[i][j] = presente[i][j];
+
+		t = t + tao;
+	}
+
+	ofstream file3;
+	file3.open("periodicos.dat");
+	for (int i = 0; i < x_max; i++)
+	{
+		for (int j = 0; j < y_max; j++)
+			file3 << presente[i][j] << " ";
+		file3 << std::endl;
+	}
+	file3.close();
+}
 
 
 
