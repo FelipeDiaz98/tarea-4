@@ -17,15 +17,15 @@ int main()
 	float yc = 25;
 	float dc = 10;	
 	float tao = 0.5;
-	float t_max = 150000;
+	float t_max = 100000;
 	float ta = 10;
 	float k = 1.62;
 	float C_p = 820;
 	float p = 2.71;
 	float nu = k/(C_p * p);
-	//fijos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
+	fijos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
 	//abiertos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
-	periodicos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
+	//periodicos(x_max,y_max,tc,xc,yc,dc,tao,t_max,nu,ta);
 	
 	return 0;
 }
@@ -44,7 +44,10 @@ void fijos(int x_max, int y_max, float tc, float xc, float yc, float dc, float t
 	float pasado[x_max][y_max];
 	float presente[x_max][y_max];
 	float r = dc/2;
-	
+	int c = 0;
+	ofstream file1;
+	file1.open("fijos.dat");
+
 	for (int i = 0; i < x_max; i++)
 		for (int j = 0; j < y_max; j++)
 		{
@@ -54,6 +57,14 @@ void fijos(int x_max, int y_max, float tc, float xc, float yc, float dc, float t
 				pasado[i][j] = ta;
 		}
 
+	for (int i = 0; i < x_max; i++)
+	{
+		for (int j = 0; j < y_max; j++)
+			file1 << pasado[i][j] << " ";
+		file1 << std::endl;
+	}
+
+	c = c + 1;
 	float t = tao;
 	while (t < t_max)
 	{
@@ -70,22 +81,22 @@ void fijos(int x_max, int y_max, float tc, float xc, float yc, float dc, float t
 						presente[i][j] = (nu*tao*(pasado[i+1][j] + pasado[i-1][j] + pasado[i][j+1] + pasado[i][j-1] - (4*pasado[i][j])) + pasado[i][j]);
 				}	
 			}
-
 		for (int i = 0; i < x_max; i++)
 			for (int j = 0; j < y_max; j++)
 				pasado[i][j] = presente[i][j];
 
+		if (c%200 == 0)
+			for (int i = 0; i < x_max; i++)
+			{
+				for (int j = 0; j < y_max; j++)
+					file1 << pasado[i][j] << " ";
+				file1 << std::endl;
+			}
+
+		c = c + 1;
 		t = t + tao;
 	}
 
-	ofstream file1;
-	file1.open("fijos.dat");
-	for (int i = 0; i < x_max; i++)
-	{
-		for (int j = 0; j < y_max; j++)
-			file1 << presente[i][j] << " ";
-		file1 << std::endl;
-	}
 	file1.close();
 }
 
