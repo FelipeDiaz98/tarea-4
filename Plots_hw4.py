@@ -4,7 +4,7 @@ import matplotlib.animation as animation
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
-"""
+
 #PUNTO 2
 
 angulo = np.genfromtxt("angulo.dat")
@@ -19,7 +19,7 @@ plt.legend(loc="best")
 plt.title("Grafica del recorrido del proyectil lanzado a un angulo de 45 grados")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.savefig("parabolico1.pdf")
+plt.savefig("Parabolico1.pdf")
 
 print "La distancia recorrida por el proyectil a un angulo de 45 grado es de", xa[-1]
 
@@ -62,14 +62,14 @@ plt.legend(loc="best")
 plt.title("Grafica del recorrido del proyectil lanzado a diferentes angulos")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.savefig("parabolico2.pdf")
+plt.savefig("Parabolico2.pdf")
 
 indice = xf.index(max(xf))
 ang_max = (indice + 1) * 10
 print "El angulo para el cual la distancia recorrida es mayor es para", ang_max, "grados."
 
 #PUNTO 3 (BONO)
-"""
+
 datos1 = np.genfromtxt("fijos.dat")
 n1 = len(datos1)/50
 
@@ -77,7 +77,7 @@ M1 = []
 for i in range(n1):
 	m = datos1[i*50:(i+1)*50][0::]
 	M1.append(m)
-"""
+
 def data1(i, z1, line1):
 	z1 = M1[i]
 	ax1.clear()
@@ -105,7 +105,7 @@ plt.title("Temperatura en distintos instantes")
 ani1 = animation.FuncAnimation(fig1, data1, fargs=(M1, line1), frames = len(M1), interval=30, blit=False)
 ani1.save("fijos.gif",writer = "imagemagick",fps=20)
 
-"""
+
 
 datos2 = np.genfromtxt("abiertos.dat")
 n2 = len(datos2)/50
@@ -114,7 +114,7 @@ M2 = []
 for i in range(n2):
 	m = datos2[i*50:(i+1)*50][0::]
 	M2.append(m)
-"""
+
 def data2(i, z2, line2):
 	z2 = M2[i]
 	ax2.clear()
@@ -142,7 +142,7 @@ plt.title("Temperatura en distintos instantes")
 ani2 = animation.FuncAnimation(fig2, data2, fargs=(M2, line2), frames = len(M2), interval=30, blit=False)
 ani2.save("abiertos.gif",writer = "imagemagick",fps=20)
 
-"""
+
 
 datos3 = np.genfromtxt("periodicos.dat")
 n3 = len(datos3)/50
@@ -151,7 +151,7 @@ M3 = []
 for i in range(n3):
 	m = datos3[i*50:(i+1)*50][0::]
 	M3.append(m)
-"""
+
 def data3(i, z3, line3):
 	z3 = M3[i]
 	ax3.clear()
@@ -177,7 +177,7 @@ fig3.colorbar(line, shrink=0.5, aspect=5)
 
 ani3 = animation.FuncAnimation(fig3, data3, fargs=(M3, line3), frames = len(M3), interval=30, blit=False)
 ani3.save("periodicos.gif",writer = "imagemagick",fps=20)
-"""
+
 #PUNTO 3 CONTINUACION (NO BONO)
 
 def funcion(x,y,M):
@@ -207,7 +207,7 @@ plt.title("Temperatura de la placa la principio para condiciones fijas")
 x10, y10 = np.meshgrid(x10, y10)
 surf10 = ax10.plot_surface(x10,y10,z10, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig10.colorbar(surf10, shrink=0.5, aspect=5)
-plt.show(surf10)
+plt.savefig("Plot10.pdf")
 
 x11 = np.linspace(0,49,50,dtype="int")
 y11 = np.linspace(0,49,50,dtype="int")
@@ -224,7 +224,7 @@ plt.title("Temperatura de la placa en un punto medio para condiciones fijas")
 x11, y11 = np.meshgrid(x11, y11)
 surf11 = ax11.plot_surface(x11,y11,z11, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig11.colorbar(surf11, shrink=0.5, aspect=5)
-plt.show(surf11)
+plt.savefig("Plot11.pdf")
 
 x12 = np.linspace(0,49,50,dtype="int")
 y12 = np.linspace(0,49,50,dtype="int")
@@ -241,7 +241,7 @@ plt.title("Temperatura de la placa en un punto medio para condiciones fijas")
 x12, y12 = np.meshgrid(x12, y12)
 surf12 = ax12.plot_surface(x12,y12,z12, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig12.colorbar(surf12, shrink=0.5, aspect=5)
-plt.show(surf12)
+plt.savefig("Plot12.pdf")
 
 x13 = np.linspace(0,49,50,dtype="int")
 y13 = np.linspace(0,49,50,dtype="int")
@@ -258,7 +258,7 @@ plt.title("Temperatura de la placa al final para condiciones fijas")
 x13, y13 = np.meshgrid(x13, y13)
 surf13 = ax13.plot_surface(x13,y13,z13, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig13.colorbar(surf13, shrink=0.5, aspect=5)
-plt.show(surf13)
+plt.savefig("Plot13.pdf")
 
 
 
@@ -285,7 +285,7 @@ plt.title("Temperatura de la placa la principio para condiciones abiertas")
 x20, y20 = np.meshgrid(x20, y20)
 surf20 = ax20.plot_surface(x20,y20,z20, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig20.colorbar(surf20, shrink=0.5, aspect=5)
-plt.show(surf20)
+plt.savefig("Plot20.pdf")
 
 x21 = np.linspace(0,49,50,dtype="int")
 y21 = np.linspace(0,49,50,dtype="int")
@@ -302,7 +302,7 @@ plt.title("Temperatura de la placa en un punto medio para condiciones abiertas")
 x21, y21 = np.meshgrid(x21, y21)
 surf21 = ax21.plot_surface(x21,y21,z21, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig21.colorbar(surf21, shrink=0.5, aspect=5)
-plt.show(surf21)
+plt.savefig("Plot21.pdf")
 
 x22 = np.linspace(0,49,50,dtype="int")
 y22 = np.linspace(0,49,50,dtype="int")
@@ -319,7 +319,7 @@ plt.title("Temperatura de la placa en un punto medio para condiciones abiertas")
 x22, y22 = np.meshgrid(x22, y22)
 surf22 = ax22.plot_surface(x22,y22,z22, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig22.colorbar(surf22, shrink=0.5, aspect=5)
-plt.show(surf22)
+plt.savefig("Plot22.pdf")
 
 x23 = np.linspace(0,49,50,dtype="int")
 y23 = np.linspace(0,49,50,dtype="int")
@@ -336,7 +336,7 @@ plt.title("Temperatura de la placa al final para condiciones abiertas")
 x23, y23 = np.meshgrid(x23, y23)
 surf23 = ax23.plot_surface(x23,y23,z23, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig23.colorbar(surf23, shrink=0.5, aspect=5)
-plt.show(surf23)
+plt.savefig("Plot23.pdf")
 
 
 
@@ -363,7 +363,7 @@ plt.title("Temperatura de la placa la principio para condiciones periodicas")
 x30, y30 = np.meshgrid(x30, y30)
 surf30 = ax30.plot_surface(x30,y30,z30, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig30.colorbar(surf30, shrink=0.5, aspect=5)
-plt.show(surf30)
+plt.savefig("Plot30.pdf")
 
 x31 = np.linspace(0,49,50,dtype="int")
 y31 = np.linspace(0,49,50,dtype="int")
@@ -380,7 +380,7 @@ plt.title("Temperatura de la placa en un punto medio para condiciones periodicas
 x31, y31 = np.meshgrid(x31, y31)
 surf31 = ax31.plot_surface(x31,y31,z31, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig31.colorbar(surf31, shrink=0.5, aspect=5)
-plt.show(surf31)
+plt.savefig("Plot31.pdf")
 
 x32 = np.linspace(0,49,50,dtype="int")
 y32 = np.linspace(0,49,50,dtype="int")
@@ -397,7 +397,7 @@ plt.title("Temperatura de la placa en un punto medio para condiciones periodicas
 x32, y32 = np.meshgrid(x32, y32)
 surf32 = ax32.plot_surface(x32,y32,z32, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig32.colorbar(surf32, shrink=0.5, aspect=5)
-plt.show(surf32)
+plt.savefig("Plot32.pdf")
 
 x33 = np.linspace(0,49,50,dtype="int")
 y33 = np.linspace(0,49,50,dtype="int")
@@ -414,36 +414,65 @@ plt.title("Temperatura de la placa al final para condiciones periodicas")
 x33, y33 = np.meshgrid(x33, y33)
 surf33 = ax33.plot_surface(x33,y33,z33, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig33.colorbar(surf33, shrink=0.5, aspect=5)
-plt.show(surf33)
+plt.savefig("Plot33.pdf")
 
 
 
-#ALGO
+T1 = []
+for i in range(len(M1)):
+	temp = []
+	largo, ancho = np.shape(M1[i])
+	for j in range(largo):
+		for k in range(ancho):
+			if (M1[i][j][k] != 100):
+				temp.append(M1[i][j][k])
+	T1.append(np.average(temp))
 
+T2 = []
+for i in range(len(M2)):
+	temp = []
+	largo, ancho = np.shape(M2[i])
+	for j in range(largo):
+		for k in range(ancho):
+			if (M2[i][j][k] != 100):
+				temp.append(M2[i][j][k])
+	T2.append(np.average(temp))
 
+T3 = []
+for i in range(len(M3)):
+	temp = []
+	largo, ancho = np.shape(M3[i])
+	for j in range(largo):
+		for k in range(ancho):
+			if (M3[i][j][k] != 100):
+				temp.append(M3[i][j][k])
+	T3.append(np.average(temp))
 
+t1 = np.linspace(0,len(T1)-1,len(T1))
+t2 = np.linspace(0,len(T2)-1,len(T2))
+t3 = np.linspace(0,len(T3)-1,len(T3))
 
+plt.figure()
+plt.plot(t1,T1,label="Temperatura promedio")
+plt.legend(loc="best")
+plt.title("Temperatura promedio de la placa en funcion del tiempo para condiciones fijas")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Temperatura (C)")
+plt.savefig("Prom1.pdf")
 
+plt.figure()
+plt.plot(t2,T2,label="Temperatura promedio")
+plt.legend(loc="best")
+plt.title("Temperatura promedio de la placa en funcion del tiempo para condiciones abiertas")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Temperatura (C)")
+plt.savefig("Prom2.pdf")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+plt.figure()
+plt.plot(t3,T3,label="Temperatura promedio")
+plt.legend(loc="best")
+plt.title("Temperatura promedio de la placa en funcion del tiempo para condiciones periodicas")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Temperatura (C)")
+plt.savefig("Prom3.pdf")
 
