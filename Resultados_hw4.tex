@@ -1,0 +1,60 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{color}
+
+\parskip=2mm
+
+\begin{document}
+
+\section{Punto 2}
+
+\includegraphics{Parabolico1.pdf}
+
+En la grafica se puede observar como el proyectil sube en linea recta con el impulso inicial del angulo con el que fue lanzado, y despues de que se le acaba el impulso (cuando la velocidad en y se vuelve cero), el proyectil deja de estar propulsado y comienza a caer en caida libre como un tiro parabolico.
+
+\includegraphics{Parabolico2.pdf}
+
+En la grafica se puede observar como el proyectil sube en linea recta con el impulso incial del angulo con el que fue lanzado para los diferentes angulos, pero dependiendo del mismo el proyectil alcanza a recorrer una mayor distancia en x, logrando el mayor alcance para angulos mas pequenios, esto ya que entre mas pequenio sea el angulo menor es la componente en y de la velocidad y como el proyectil esta propulsado no cae por la gravedad sino hasta que se le acabe la propulsion, por lo cual a diferencia de un tiro parabolico sin resistencia, el mejor angulo no es de 45 sino de 10 (el mas pequenio al que fue lanzado).
+
+\section{Punto 3}
+
+Para esta parte se estudio el comportamiento de una placa de piedra con cierto coeficiente de difusion termico, de dimesiones de 50x50 centimetros, la cual estaba atravezada en la mitad por un tubo de diametro de 10 centimetros que siempre se mantenia a una temperatura de 100 grados centigrados, ademas la placa entera estaba en todos los casos a una temperatura inicial de 10 grados centigrados, y dependiendo del caso, las fronteras (limites) de la placa, se comportaban de manera distinta como se explicara a continuacion para cada caso.
+
+\subsection{Caso 1 (condiciones fijas)}
+
+\includegraphics{Plot10.pdf}
+\includegraphics{Plot11.pdf}
+\includegraphics{Plot12.pdf}
+\includegraphics{Plot13.pdf}
+
+Condiciones fijas: Este caso consistia en que los extremos (de los cuatros lados) de la placa se mantenian a una temperatura constante de 10 grados centigrados en todo momento, esto es equivalente a imaginar que la placa esta aislada en un entorno que siempre se mantiene a 10 grados centigrados, por lo que los extremos de la placa siempre estan en equilibrio termico con el medio ambiente, haciendo que siempre esten a 10 grados centigrados. En los resultados obtenidos al observar la temperatura de la placa en muchos instantes de tiempo (despues de mucho tiempo), se puede observar como, cuando la placa alcanza el equilibrio termico (cuando no hay mas transferencia de calor entre la barra de metal y la placa), se genera una especie de cono que va desde los extremos (10 grados centigrados) hasta el centro de la placa (100 grados centigrados), esto debido posiblemente a que entre mas hacia el extremo de la placa estemos hubicados, al estar mas cerca del extremo, mas calor vamos a perder ya que este se pasa hacia el extremo y este pierde todo el calor ya que siempre se mantiene a 10 grados centigrados (nunca se calientan los extremos), haciendo que la radiacion termica no se devuelva despues de llegar al extremo y que lo unico que caliente a la placa sea el calor irradiado por la barra metalica. 
+
+\subsection{Caso 2 (condiciones abiertas)}
+
+\includegraphics{Plot20.pdf}
+\includegraphics{Plot21.pdf}
+\includegraphics{Plot22.pdf}
+\includegraphics{Plot23.pdf}
+
+Condiciones abiertas: Este caso consistia en que los extremos (los cuatro lados) de la placa cambiaban libremente de temperatura al igual que el resto de la placa, como si idealmente los extremos de la placa se calentaran de manera instantanea y no estuviera transfiriendo calor al medio. En los resultados obtenidos al observar la tempratura de la placa en muchos instantes de tiempo, se puede observar como, a medida que la placa se va calentando, toda la placa va subiendo de temperatura de manera casi uniforme, generando un gradiente muy pequenio en toda la placa, y calentando menos las esquinas, esto posiblemente debido a que, como el calor se propaga de manera radial en radiacion termica, como las esquinas estan mas alejadas del centro que el resto de las partes de la placa (y en particulas de los extremos), estos reciben menos calor y por eso se demoran mas tiempo en calentarse que el resto de la placa, pero eventualmente se puede ver como la temperatura de todos los puntos de la placa tienden a 100, sin embargo que esto pase es demasiado demorado debido posiblemente al coeficiente de difusion de la placa, el cual no es muy bueno y no permite un flujo grande de calor. Los resultados de estas condiciones son iguales a los observados en las condiciones periodicas, por lo cual no se analizan a continuacion sino que se explica el porque de esto.
+
+\subsection{Caso 3 (condiciones periodicas)}
+
+\includegraphics{Plot30.pdf}
+\includegraphics{Plot31.pdf}
+\includegraphics{Plot32.pdf}
+\includegraphics{Plot33.pdf}
+
+Condiciones periodicas: Este caso consistia en simular que la placa estaba rodeada a cada extremo por otras placas iguales y sometidas a las mismas condiciones, por lo cual el calor irradiado por este le llegaba a las de cada extremo y cada una de las placas a los extremos de la placa le irradiaban de igual manera a la placa obserbada, pero sin que las placas esten en contacto termico entre si. Este caso es igual al anteriormente descrito (condiciones abiertas), posiblemente porque como el calor sale de forma radial hacia todos los extremos de la placa, lo que llega por un lado es igual que lo que llega por el otro, por lo que realmente todas las placas se estan comportando igual en cada extremo y es como si simplemente hubieramos tenido en cuenta los puntos anteriores a los extremos (ya que numericamente realmente son iguales a lo recibido por el extremo opuesto de la placa de al lado), obteniendo asi los mismos resultados que condiciones abiertas.
+
+\subsection{Promedio}
+
+\includegraphics{Prom1.pdf}
+\includegraphics{Prom2.pdf}
+\includegraphics{Prom3.pdf}
+
+
+
+\end{document}
